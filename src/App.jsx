@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import {questions} from './data/questions'
 import AnswerBuilder from './components/AnswerBuilder'
-import { textAnswerSetter, checkboxAnswerSetter } from './service/answerHandlers'
 
 function App() {
   const [question, setQuestion] = useState({})
@@ -33,6 +32,39 @@ function App() {
     const qlist = JSON.parse(localStorage.getItem('questions'))
     localStorage.setItem('currentQuestion', question.id - 1)
     setQuestion(qlist[question.id - 2])
+  }
+
+  function textAnswerSetter(e) {
+    let qs = JSON.parse(localStorage.getItem('questions'))
+    qs[question.id - 1].answer = e.target.value
+    localStorage.setItem('questions', JSON.stringify(qs))
+    setQuestion(prev => {
+      return {
+        ...prev,
+        answer: e.target.value
+      }
+    })
+  }
+  
+  function checkboxAnswerSetter(e, idx) {
+    let qs = JSON.parse(localStorage.getItem('questions'))
+    let answers = []
+    qs[question.id - 1].options[idx].checked = !qs[question.id - 1].options[idx].checked
+  
+    qs[question.id - 1].options.forEach(option => {
+      if (option.checked) answers.push(option.title)
+    })
+  
+    qs[question.id - 1].answer = answers
+    localStorage.setItem('questions', JSON.stringify(qs))
+  
+    setQuestion(prev => {
+      return {
+        ...prev,
+        options: [...qs[question.id - 1].options],
+        answer: [...answers]
+      }
+    })
   }
 
   function valueSetter() {
