@@ -90,8 +90,11 @@ function App() {
         return textAnswerSetter
       case 'checkbox':
         return checkboxAnswerSetter
-        case 'radio':
-          return radioAnswerSetter        
+      case 'radio':
+        return radioAnswerSetter    
+      case 'input':
+        return textAnswerSetter            
+            
     }
   }
 
@@ -106,8 +109,8 @@ function App() {
     <div className="App">
       <div className="form-wrapper">
         <div className="container">
+          <img className='cursor-logo' src="./assets/logo.png" alt="Logo" />
           <div className="input-wrapper">
-            <img className='cursor-logo' src="./assets/logo.png" alt="Logo" />
             <div className="input-block">
               <div className="question">
                 <div className='label'>Вопрос номер {question.id} из {questions.length}</div>
@@ -135,8 +138,7 @@ function App() {
                   onClick={submitForm}>
                     Отправить
                   </button> 
-                } 
-                               
+                }   
               </div>
             </div>
           </div>

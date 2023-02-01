@@ -13,28 +13,37 @@ body {
 }
 
 .container {
-  max-width: 900px;
+  height: 100vh;
+  max-width: 600px;
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 0 100px 0;
+  box-sizing: border-box;
 }
 
 
 .input-wrapper {
-  height: 100vh;
   display: flex;
-  align-items: center;
   justify-content: center;
   position: relative;
+  box-sizing: border-box;
+  height: 100%;
+  width: 100%;
 }
 
 .cursor-logo {
   width: 65px;
-  position: absolute;
-  top: 10px;
-  left: 50%;
-  transform: translate(-50%,0);
+  margin-bottom: 50px;
 }
 
 .input-block {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+
   .question {
     color: #fff;
     
@@ -50,11 +59,11 @@ body {
   
   .answer {
     margin-bottom: 30px;
+    flex: 1;
 
     textarea, .options-wrapper {
-      min-width: 500px;
       width: 100%;
-      min-height: 100px;
+      min-height: 120px;
       border: 2px solid #e5a90c;
       border-radius: 8px;
       background-color: transparent;
@@ -68,6 +77,22 @@ body {
         box-shadow: 0 0px 10px 1px #e5a90c;
       }
 
+    }
+
+    .input-field {
+      border: 2px solid #e5a90c;
+      border-radius: 8px;
+      background-color: transparent;
+      outline: none;
+      padding: 10px;
+      color: #fff;
+      box-sizing: border-box;
+      height: 56px;
+      width: 100%;
+      
+      &:focus {
+        box-shadow: 0 0px 10px 1px #e5a90c;
+      }
     }
 
     .options-wrapper {
