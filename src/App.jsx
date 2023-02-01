@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import {questions} from './data/questions'
+import AnswerBuilder from './components/AnswerBuilder'
 
 function App() {
   const [question, setQuestion] = useState({})
@@ -15,12 +16,6 @@ function App() {
     }
   }, [])
 
-  function changeQuestion(type) {
-    const qlist = JSON.parse(localStorage.getItem('questions'))
-    if (type === 'next')setQuestion(qlist[question.id])
-    else if (type === 'prev') setQuestion(qlist[question.id - 2])
-  }
-
   function nextQuestion() {
     const qlist = JSON.parse(localStorage.getItem('questions'))
     setQuestion(qlist[question.id])
@@ -31,7 +26,7 @@ function App() {
     setQuestion(qlist[question.id - 2])
   }
 
-  function answerSetter(e) {
+  function textAnswerSetter(e) {
     let qs = JSON.parse(localStorage.getItem('questions'))
     qs[question.id - 1].answer = e.target.value
     localStorage.setItem('questions', JSON.stringify(qs))
@@ -39,6 +34,27 @@ function App() {
       return {
         ...prev,
         answer: e.target.value
+      }
+    })
+  }
+
+  function checkboxAnswerSetter(e, idx) {
+    let qs = JSON.parse(localStorage.getItem('questions'))
+    let answers = []
+    qs[question.id - 1].options[idx].checked = !qs[question.id - 1].options[idx].checked
+
+    qs[question.id - 1].options.forEach(option => {
+      if (option.checked) answers.push(option.title)
+    })
+
+    qs[question.id - 1].answer = answers
+    localStorage.setItem('questions', JSON.stringify(qs))
+
+    setQuestion(prev => {
+      return {
+        ...prev,
+        options: [...qs[question.id - 1].options],
+        answer: [...answers]
       }
     })
   }
@@ -61,7 +77,7 @@ function App() {
                 <h1 className='question-body'>{question.question}</h1>
               </div>
               <div className="answer">
-                <textarea value={question.answer} onChange={(e)=> {answerSetter(e)}} name="answer" id="2"></textarea>
+                <AnswerBuilder question={question} checkboxAnswerSetter={checkboxAnswerSetter} textAnswerSetter={textAnswerSetter}/>
               </div>
 
               <div className={'controls' + (question.id === 1 ? '' : ' between')}>
@@ -92,5 +108,4 @@ function App() {
     </div>
   )
 }
-
 export default App
