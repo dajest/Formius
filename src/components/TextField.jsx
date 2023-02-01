@@ -6,4 +6,4 @@ function TextField(props) {
   )
 }
 
-export default TextField
+export { TextField }
