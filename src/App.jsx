@@ -67,12 +67,31 @@ function App() {
     })
   }
 
+  function radioAnswerSetter(e, idx) {
+    let qs = JSON.parse(localStorage.getItem('questions'))
+    qs[question.id - 1].options.forEach(opt => opt.checked = false)
+    qs[question.id - 1].options[idx].checked = !qs[question.id - 1].options[idx].checked;
+    qs[question.id - 1].answer = e.target.value
+    
+    localStorage.setItem('questions', JSON.stringify(qs))
+
+    setQuestion(prev => {
+      return {
+        ...prev,
+        options: [...qs[question.id - 1].options],
+        answer: qs[question.id - 1].answer
+      }
+    })
+  }
+
   function valueSetter() {
     switch(question.type) {
       case 'text':
         return textAnswerSetter
       case 'checkbox':
         return checkboxAnswerSetter
+        case 'radio':
+          return radioAnswerSetter        
     }
   }
 

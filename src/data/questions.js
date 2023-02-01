@@ -44,6 +44,34 @@ const questions = [
       }
     ],
     answer: []
+  },
+  {
+    id: 5,
+    question: "Какой фрэймвор Выбирите?",
+    type: 'radio',
+    options: [
+      {
+        checked: false,
+        title: 'Angular'
+      },
+      {
+        checked: false,
+        title: 'Vue'
+      },
+      {
+        checked: false,
+        title: 'React'
+      },
+      {
+        checked: false,
+        title: 'Svetle'
+      },
+      {
+        checked: false,
+        title: 'Vanila Javascript'
+      }
+    ],
+    answer: ''
   }
 ]
 
