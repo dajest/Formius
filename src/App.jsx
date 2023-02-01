@@ -43,6 +43,12 @@ function App() {
     })
   }
 
+  function submitForm() {
+    alert("Thank you for your time!!!")
+    localStorage.removeItem('questions')
+    location.reload();
+  }
+
   return (
     <div className="App">
       <div className="form-wrapper">
@@ -69,6 +75,15 @@ function App() {
                   onClick={nextQuestion}>
                     Слудующий Вопрос
                 </button>
+                {
+                  question.id === questions.length && 
+                  <button 
+                  className='question-btn submit-form'
+                  onClick={submitForm}>
+                    Отправить
+                  </button> 
+                } 
+                               
               </div>
             </div>
           </div>
